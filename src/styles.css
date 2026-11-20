@@ -32,6 +32,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .header-actions { display: flex; align-items: center; justify-content: flex-end; gap: 18px; font-size: 14px; }
 .welcome-name { color: rgba(23, 32, 29, .68); }
 .text-link { font-weight: 600; }
+.trip-link { display: flex; align-items: center; gap: 7px; font-weight: 600; }
+.trip-link span { min-width: 21px; height: 21px; border-radius: 50%; background: var(--orange); color: white; display: grid; place-items: center; font-size: 10px; }
 main { flex: 1; }
 
 .button { border: 0; min-height: 48px; padding: 0 24px; display: inline-flex; align-items: center; justify-content: center; font-weight: 600; cursor: pointer; transition: transform .18s ease, background .18s ease, opacity .18s ease; }
@@ -122,6 +124,126 @@ main { flex: 1; }
 .next-step-banner p { color: rgba(23,32,29,.62); }
 .page-status, .not-found { min-height: 60vh; display: grid; place-items: center; align-content: center; gap: 24px; text-align: center; padding: 30px; }
 .not-found h1 { font-size: clamp(42px, 6vw, 76px); }
+.catalog-page, .detail-page, .trip-page { background: var(--cream); min-height: 80vh; }
+.catalog-hero { min-height: 470px; padding: 88px clamp(22px, 5vw, 76px) 54px; color: white; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
+.hotel-catalog-hero { background: var(--forest); }
+.companion-catalog-hero { background: #782f22; }
+.catalog-hero::after { content: ""; width: 420px; height: 420px; border-radius: 50%; background: var(--orange); position: absolute; right: 7%; top: -190px; opacity: .9; }
+.companion-catalog-hero::after { background: var(--lime); }
+.catalog-hero > div, .catalog-filter { position: relative; z-index: 1; }
+.catalog-hero h1, .detail-title h1, .companion-intro h1, .trip-head h1 { margin: 0; font-family: "Manrope"; font-weight: 500; font-size: clamp(48px, 6vw, 82px); line-height: 1; letter-spacing: -.055em; }
+.catalog-filter { display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; max-width: 780px; background: var(--paper); color: var(--ink); padding: 12px; }
+.catalog-filter label, .stay-fields label, .availability-fields label { display: grid; gap: 5px; font-size: 9px; letter-spacing: .14em; font-weight: 600; }
+.catalog-filter input, .stay-fields input, .availability-fields input, .availability-fields select { height: 42px; border: 1px solid var(--line); background: white; padding: 0 12px; outline: none; min-width: 0; }
+.catalog-content { max-width: 1500px; margin: auto; padding: 90px clamp(22px, 5vw, 76px) 120px; }
+.result-heading { display: flex; justify-content: space-between; align-items: end; margin-bottom: 42px; }
+.result-heading h2, .detail-overview h2, .booking-section h2, .availability-section h2, .trip-summary h2 { margin: 0; font-family: "Manrope"; font-size: clamp(32px, 4vw, 52px); font-weight: 500; letter-spacing: -.05em; }
+.result-heading > span { font-size: 12px; letter-spacing: .1em; color: rgba(23,32,29,.55); }
+.catalog-state { min-height: 240px; border: 1px solid var(--line); display: flex; flex-direction: column; gap: 12px; align-items: center; justify-content: center; color: rgba(23,32,29,.58); text-align: center; }
+.catalog-state strong { color: var(--ink); font-size: 20px; }
+.loading-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--orange); animation: pulse 1s ease-in-out infinite alternate; }
+@keyframes pulse { to { transform: scale(1.7); opacity: .3; } }
+.hotel-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 54px 22px; }
+.hotel-tile { display: block; }
+.catalog-image-wrap { height: 390px; position: relative; background: #ddd8ca; overflow: hidden; }
+.catalog-image-wrap img, .room-image img, .detail-hero-image img, .companion-tile img, .companion-portrait img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.hotel-tile:hover .catalog-image-wrap img, .companion-tile:hover img { transform: scale(1.035); }
+.image-placeholder { width: 100%; height: 100%; background: #d5d2c2; display: grid; place-items: center; font-size: 12px; letter-spacing: .18em; color: rgba(23,32,29,.45); }
+.tile-number { position: absolute; top: 18px; left: 18px; background: var(--paper); width: 36px; height: 36px; display: grid; place-items: center; font-size: 10px; }
+.tile-copy { display: flex; justify-content: space-between; gap: 24px; padding: 20px 2px; border-bottom: 1px solid var(--line); }
+.tile-copy p { margin: 0 0 5px; color: var(--orange); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; }
+.tile-copy h3 { margin: 0; font-family: "Manrope"; font-weight: 500; font-size: 27px; letter-spacing: -.04em; }
+.tile-meta { text-align: right; display: grid; align-content: space-between; justify-items: end; font-size: 11px; }
+.tile-meta span { color: rgba(23,32,29,.5); }
+.tile-meta strong { font-size: 14px; }
+.companion-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.companion-tile { height: 570px; position: relative; overflow: hidden; background: #ccc; color: white; }
+.companion-tile::after { content: ""; position: absolute; inset: 40% 0 0; background: linear-gradient(transparent, rgba(10,20,17,.88)); }
+.companion-overlay { position: absolute; z-index: 1; left: 26px; right: 26px; bottom: 25px; }
+.companion-overlay h3 { margin: 7px 0 16px; font-family: "Manrope"; font-size: 36px; font-weight: 500; letter-spacing: -.04em; }
+.companion-overlay > div { display: flex; gap: 15px; font-size: 11px; color: rgba(255,255,255,.76); }
+.detail-page { padding: 0 clamp(22px, 5vw, 76px) 120px; }
+.detail-breadcrumb { min-height: 68px; display: flex; align-items: center; gap: 10px; font-size: 12px; color: rgba(23,32,29,.5); }
+.detail-breadcrumb a { color: var(--ink); }
+.hotel-detail-head { padding: 60px 0 48px; display: flex; justify-content: space-between; align-items: end; }
+.detail-title > p:last-child { color: rgba(23,32,29,.58); max-width: 680px; }
+.detail-rating { display: grid; text-align: right; }
+.detail-rating strong { font-family: "Manrope"; font-size: 50px; color: var(--orange); }
+.detail-rating span { font-size: 9px; letter-spacing: .16em; }
+.detail-hero-image { height: min(62vw, 720px); background: #d7d3c6; }
+.detail-overview { padding: 80px 0; display: grid; grid-template-columns: 1.4fr .6fr; gap: 80px; border-bottom: 1px solid var(--line); }
+.detail-overview h2 { line-height: 1.25; }
+.amenity-list { display: flex; flex-wrap: wrap; align-content: start; gap: 9px; }
+.amenity-list span, .language-row span { padding: 9px 12px; border: 1px solid var(--line); font-size: 11px; }
+.booking-section, .availability-section { padding-top: 90px; }
+.booking-section-head, .availability-head { display: flex; justify-content: space-between; gap: 40px; align-items: end; margin-bottom: 42px; }
+.stay-fields { display: grid; grid-template-columns: repeat(4, minmax(90px, 1fr)); gap: 8px; max-width: 650px; }
+.room-list { display: grid; gap: 18px; }
+.room-card { display: grid; grid-template-columns: 280px minmax(220px, .7fr) minmax(360px, 1fr); background: var(--paper); border: 1px solid var(--line); min-height: 280px; }
+.room-image { background: #d5d2c2; overflow: hidden; }
+.room-copy { padding: 27px; border-right: 1px solid var(--line); }
+.room-copy h3 { font-family: "Manrope"; font-size: 28px; font-weight: 500; letter-spacing: -.04em; margin: 8px 0; }
+.room-copy > p { color: rgba(23,32,29,.56); font-size: 13px; line-height: 1.55; }
+.room-facts { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 11px; margin-top: 23px; }
+.rate-list { display: grid; align-content: stretch; }
+.rate-row { display: grid; grid-template-columns: 1fr auto; gap: 20px; padding: 22px; border-bottom: 1px solid var(--line); align-items: center; }
+.rate-row:last-child { border-bottom: 0; }
+.rate-row > div { display: grid; gap: 5px; }
+.rate-row > div:last-child { justify-items: end; }
+.rate-row span { color: rgba(23,32,29,.55); font-size: 11px; }
+.companion-profile-head { display: grid; grid-template-columns: minmax(330px, .75fr) 1fr 120px; min-height: 670px; background: var(--forest); color: white; }
+.companion-portrait { overflow: hidden; }
+.companion-intro { padding: 80px clamp(30px, 5vw, 70px); display: flex; flex-direction: column; justify-content: center; }
+.companion-intro h1 { font-size: clamp(54px, 7vw, 96px); }
+.companion-intro h2 { font-family: "Manrope"; font-weight: 500; font-size: 27px; line-height: 1.25; margin: 22px 0; color: var(--lime); }
+.companion-intro > p { color: rgba(255,255,255,.66); line-height: 1.75; }
+.language-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 25px; }
+.language-row span { border-color: rgba(255,255,255,.23); }
+.rating-stack { border-left: 1px solid rgba(255,255,255,.15); display: grid; }
+.rating-stack div { display: grid; place-items: center; align-content: center; border-bottom: 1px solid rgba(255,255,255,.15); }
+.rating-stack strong { font-family: "Manrope"; color: var(--orange); font-size: 34px; }
+.rating-stack span { font-size: 10px; color: rgba(255,255,255,.56); }
+.companion-facts { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); border-top: 0; }
+.companion-facts div { min-height: 130px; padding: 23px; display: grid; align-content: space-between; border-right: 1px solid var(--line); }
+.companion-facts div:last-child { border: 0; }
+.companion-facts span { font-size: 10px; letter-spacing: .13em; color: rgba(23,32,29,.5); }
+.companion-facts strong { font-weight: 500; }
+.availability-head > div:first-child > p:last-child { color: rgba(23,32,29,.55); }
+.availability-fields { display: grid; grid-template-columns: minmax(250px, 1fr) 160px; gap: 8px; }
+.slot-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.slot-button { min-height: 120px; background: var(--paper); border: 1px solid var(--line); display: grid; place-items: center; align-content: center; gap: 7px; cursor: pointer; color: var(--ink); }
+.slot-button:hover { border-color: var(--orange); }
+.slot-button.selected { background: var(--lime); border-color: var(--ink); }
+.slot-button strong { font-size: 22px; font-family: "Manrope"; }
+.slot-button span { font-size: 11px; }
+.slot-button small { color: rgba(23,32,29,.5); }
+.selection-bar { position: sticky; bottom: 16px; margin: 20px auto 0; max-width: 850px; background: var(--paper); border: 1px solid var(--ink); box-shadow: 0 16px 50px rgba(23,32,29,.14); padding: 15px; display: grid; grid-template-columns: 1fr 1fr auto; gap: 28px; align-items: center; z-index: 5; }
+.selection-bar > div { display: grid; gap: 3px; }
+.selection-bar span { font-size: 10px; color: rgba(23,32,29,.54); }
+.trip-page { padding: 90px clamp(22px, 5vw, 76px) 120px; }
+.trip-head { display: flex; justify-content: space-between; align-items: end; max-width: 1400px; margin: 0 auto 60px; }
+.trip-head > div > p:last-child { color: rgba(23,32,29,.56); }
+.trip-layout { max-width: 1400px; margin: auto; display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: start; }
+.trip-items { display: grid; gap: 12px; }
+.trip-item { display: grid; grid-template-columns: 50px 1fr auto; gap: 20px; align-items: center; background: var(--paper); border: 1px solid var(--line); padding: 25px; }
+.trip-index { color: var(--orange); font-size: 11px; }
+.trip-item-copy { display: grid; gap: 5px; }
+.trip-item-copy h2 { margin: 0; font-family: "Manrope"; font-size: 25px; font-weight: 500; letter-spacing: -.03em; }
+.trip-item-copy > span { color: rgba(23,32,29,.55); font-size: 12px; }
+.trip-price { display: grid; justify-items: end; gap: 7px; }
+.trip-price span { font-size: 10px; color: rgba(23,32,29,.5); }
+.trip-price strong { font-size: 18px; }
+.trip-price button { background: none; border: 0; text-decoration: underline; cursor: pointer; color: rgba(23,32,29,.55); font-size: 11px; }
+.trip-summary { background: var(--lime); padding: 30px; position: sticky; top: 20px; }
+.trip-summary h2 { margin: 9px 0 17px; font-size: 34px; }
+.trip-summary > p { line-height: 1.6; color: rgba(23,32,29,.64); }
+.trip-summary > div { border-top: 1px solid rgba(23,32,29,.2); display: flex; justify-content: space-between; padding: 18px 0; }
+.trip-summary small { display: block; text-align: center; margin-top: 12px; color: rgba(23,32,29,.57); }
+.empty-trip { max-width: 760px; min-height: 440px; margin: auto; border: 1px solid var(--line); display: grid; place-items: center; align-content: center; text-align: center; gap: 10px; }
+.empty-trip > span { width: 54px; height: 54px; border-radius: 50%; background: var(--orange); color: white; display: grid; place-items: center; font-size: 20px; }
+.empty-trip h2 { font-family: "Manrope"; font-size: 38px; margin: 8px 0 0; }
+.empty-trip p { color: rgba(23,32,29,.55); }
+.empty-trip > div { display: flex; gap: 10px; margin-top: 15px; }
 .site-footer { min-height: 90px; background: var(--ink); color: rgba(255,255,255,.63); display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(22px, 5vw, 76px); font-size: 12px; letter-spacing: .1em; }
 
 @media (max-width: 900px) {
@@ -137,6 +259,21 @@ main { flex: 1; }
   .auth-panel { padding-block: 70px; }
   .account-grid { grid-template-columns: 1fr; }
   .next-step-banner { grid-template-columns: 1fr; }
+  .catalog-filter { grid-template-columns: 1fr 1fr; }
+  .catalog-filter .button { grid-column: 1 / -1; }
+  .hotel-grid { grid-template-columns: 1fr; }
+  .companion-grid { grid-template-columns: repeat(2, 1fr); }
+  .detail-overview { grid-template-columns: 1fr; gap: 30px; }
+  .booking-section-head, .availability-head { align-items: stretch; flex-direction: column; }
+  .room-card { grid-template-columns: 220px 1fr; }
+  .room-image { min-height: 260px; }
+  .rate-list { grid-column: 1 / -1; }
+  .companion-profile-head { grid-template-columns: 1fr 1.2fr; }
+  .rating-stack { grid-column: 1 / -1; grid-template-columns: repeat(3, 1fr); min-height: 110px; border-left: 0; border-top: 1px solid rgba(255,255,255,.15); }
+  .companion-facts { grid-template-columns: repeat(2, 1fr); }
+  .slot-grid { grid-template-columns: repeat(4, 1fr); }
+  .trip-layout { grid-template-columns: 1fr; }
+  .trip-summary { position: static; }
 }
 
 @media (max-width: 560px) {
@@ -155,6 +292,45 @@ main { flex: 1; }
   .profile-card { grid-template-columns: auto 1fr; }
   .status-pill { grid-column: 1 / -1; width: max-content; }
   .site-footer { flex-direction: column; justify-content: center; gap: 8px; }
+  .trip-link { font-size: 0; gap: 0; }
+  .trip-link span { font-size: 10px; }
+  .catalog-hero { min-height: 520px; padding: 70px 22px 34px; }
+  .catalog-hero h1 { font-size: 48px; }
+  .catalog-filter { grid-template-columns: 1fr; }
+  .catalog-filter .button { grid-column: auto; }
+  .catalog-content { padding-block: 68px; }
+  .result-heading { align-items: start; }
+  .catalog-image-wrap { height: 290px; }
+  .tile-copy { flex-direction: column; }
+  .tile-meta { text-align: left; justify-items: start; gap: 8px; }
+  .companion-grid { grid-template-columns: 1fr; }
+  .companion-tile { height: 520px; }
+  .detail-page { padding-inline: 0; }
+  .detail-breadcrumb, .hotel-detail-head, .detail-overview, .booking-section, .availability-section { margin-inline: 20px; }
+  .hotel-detail-head { align-items: start; flex-direction: column; gap: 20px; padding-top: 35px; }
+  .detail-title h1 { font-size: 49px; }
+  .detail-rating { text-align: left; }
+  .detail-hero-image { height: 390px; }
+  .stay-fields, .availability-fields { grid-template-columns: 1fr 1fr; }
+  .room-card { grid-template-columns: 1fr; }
+  .room-image { min-height: 280px; }
+  .room-copy { border-right: 0; border-bottom: 1px solid var(--line); }
+  .rate-row { grid-template-columns: 1fr; }
+  .rate-row > div:last-child { justify-items: start; }
+  .companion-profile-head { grid-template-columns: 1fr; }
+  .companion-portrait { height: 520px; }
+  .companion-intro { padding: 55px 24px; }
+  .rating-stack { grid-column: auto; }
+  .companion-facts { margin-inline: 20px; grid-template-columns: 1fr; }
+  .companion-facts div { border-right: 0; border-bottom: 1px solid var(--line); }
+  .slot-grid { grid-template-columns: repeat(2, 1fr); }
+  .selection-bar { grid-template-columns: 1fr 1fr; bottom: 8px; }
+  .selection-bar .button { grid-column: 1 / -1; }
+  .trip-page { padding: 65px 20px 90px; }
+  .trip-head { align-items: start; flex-direction: column; gap: 20px; }
+  .trip-head h1 { font-size: 49px; }
+  .trip-item { grid-template-columns: 34px 1fr; }
+  .trip-price { grid-column: 2; justify-items: start; }
 }
 
 @media (prefers-reduced-motion: reduce) {

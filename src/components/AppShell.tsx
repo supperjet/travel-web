@@ -1,9 +1,11 @@
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../auth/AuthProvider";
+import { useBookingDraft } from "../booking/BookingDraftProvider";
 
 export function AppShell() {
   const { identity, logout } = useAuth();
+  const { items } = useBookingDraft();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -20,9 +22,12 @@ export function AppShell() {
         </Link>
         <nav className="main-nav" aria-label="主导航">
           <NavLink to="/" end>探索</NavLink>
+          <NavLink to="/hotels">酒店</NavLink>
+          <NavLink to="/companions">地陪</NavLink>
           {identity && <NavLink to="/account">我的账户</NavLink>}
         </nav>
         <div className="header-actions">
+          <Link className="trip-link" to="/trip">行程 <span>{items.length}</span></Link>
           {identity ? (
             <>
               <span className="welcome-name">Hi, {identity.user.profile.firstName}</span>

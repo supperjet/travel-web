@@ -31,16 +31,16 @@ export function HomePage() {
           <h2>为你的停留，找到正确的人与地方。</h2>
         </div>
         <div className="experience-grid">
-          <article className="experience-card hotel-card">
+          <Link to="/hotels" className="experience-card hotel-card">
             <span className="card-index">01</span>
             <div><p>STAY</p><h3>精选酒店</h3><span>浏览真实房型与透明价格</span></div>
             <span className="card-arrow">↗</span>
-          </article>
-          <article className="experience-card companion-card">
+          </Link>
+          <Link to="/companions" className="experience-card companion-card">
             <span className="card-index">02</span>
             <div><p>MEET</p><h3>当地地陪</h3><span>按照兴趣和可用时间选择</span></div>
             <span className="card-arrow">↗</span>
-          </article>
+          </Link>
           <article className="experience-card account-card">
             <span className="card-index">03</span>
             <div><p>PLAN</p><h3>{identity ? "查看账户" : "创建账户"}</h3><span>保存联络方式，为下单做好准备</span></div>
