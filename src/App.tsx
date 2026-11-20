@@ -12,6 +12,8 @@ import { HomePage } from "./pages/HomePage";
 import { LoginPage } from "./pages/LoginPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { RegisterPage } from "./pages/RegisterPage";
+import { OrderDetailPage } from "./orders/OrderDetailPage";
+import { OrderListPage } from "./orders/OrderListPage";
 
 export function App() {
   return (
@@ -27,6 +29,8 @@ export function App() {
         <Route path="trip" element={<TripDraftPage />} />
         <Route element={<RequireAuth />}>
           <Route path="account" element={<AccountPage />} />
+          <Route path="orders" element={<OrderListPage />} />
+          <Route path="orders/:orderId" element={<OrderDetailPage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Route>

@@ -239,6 +239,11 @@ main { flex: 1; }
 .trip-summary > p { line-height: 1.6; color: rgba(23,32,29,.64); }
 .trip-summary > div { border-top: 1px solid rgba(23,32,29,.2); display: flex; justify-content: space-between; padding: 18px 0; }
 .trip-summary small { display: block; text-align: center; margin-top: 12px; color: rgba(23,32,29,.57); }
+.order-page { min-height: 80vh; }
+.order-page .trip-head .status-pill { font-size: 13px; padding: 10px 14px; }
+.order-list { max-width: 1400px; margin: auto; }
+.order-row { color: inherit; }
+.order-back { display: block; margin-top: 20px; text-align: center; }
 .empty-trip { max-width: 760px; min-height: 440px; margin: auto; border: 1px solid var(--line); display: grid; place-items: center; align-content: center; text-align: center; gap: 10px; }
 .empty-trip > span { width: 54px; height: 54px; border-radius: 50%; background: var(--orange); color: white; display: grid; place-items: center; font-size: 20px; }
 .empty-trip h2 { font-family: "Manrope"; font-size: 38px; margin: 8px 0 0; }

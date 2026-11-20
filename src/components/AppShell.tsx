@@ -24,6 +24,7 @@ export function AppShell() {
           <NavLink to="/" end>探索</NavLink>
           <NavLink to="/hotels">酒店</NavLink>
           <NavLink to="/companions">地陪</NavLink>
+          {identity && <NavLink to="/orders">订单</NavLink>}
           {identity && <NavLink to="/account">我的账户</NavLink>}
         </nav>
         <div className="header-actions">

@@ -1,7 +1,12 @@
-import { Link } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../auth/AuthProvider";
 import { formatMoney, formatHour } from "../catalog/format";
+import { FormError } from "../components/FormError";
+import { createOrder } from "../orders/api";
+import { checkoutIdempotencyKey, clearCheckoutAttempt } from "../orders/idempotency";
+import type { CreateOrderInput } from "../orders/types";
 import { useBookingDraft, type HotelDraftItem } from "./BookingDraftProvider";
 
 function hotelEstimate(item: HotelDraftItem): string {
@@ -13,6 +18,29 @@ function hotelEstimate(item: HotelDraftItem): string {
 export function TripDraftPage() {
   const { items, removeItem, clear } = useBookingDraft();
   const { identity } = useAuth();
+  const navigate = useNavigate();
+  const orderInput: CreateOrderInput = {
+    items: items.map((item) => item.type === "HOTEL" ? {
+      type: item.type,
+      ratePlanId: item.ratePlanId,
+      checkIn: item.checkIn,
+      checkOut: item.checkOut,
+      roomCount: item.roomCount,
+      guestCount: item.guestCount,
+    } : {
+      type: item.type,
+      serviceId: item.serviceId,
+      availabilityIds: item.availabilityIds,
+    }),
+  };
+  const createOrderMutation = useMutation({
+    mutationFn: () => createOrder(orderInput, checkoutIdempotencyKey(orderInput.items)),
+    onSuccess: ({ order }) => {
+      clearCheckoutAttempt();
+      clear();
+      navigate(`/orders/${order.id}`);
+    },
+  });
 
   return (
     <div className="trip-page">
@@ -30,7 +58,7 @@ export function TripDraftPage() {
               </article>
             ))}
           </div>
-          <aside className="trip-summary"><p className="card-label">NEXT STEP</p><h2>确认订单</h2><p>创建订单前，你仍可以返回目录调整服务内容。订单创建后内容和金额将不可修改。</p><div><span>服务数量</span><strong>{items.length}</strong></div>{identity ? <button className="button button-dark button-block" type="button" disabled>创建订单 · 下一阶段</button> : <Link className="button button-dark button-block" to="/login" state={{ from: "/trip" }}>登录后继续</Link>}<small>当前阶段不会发起支付。</small></aside>
+          <aside className="trip-summary"><p className="card-label">NEXT STEP</p><h2>确认订单</h2><p>创建订单前，你仍可以返回目录调整服务内容。订单创建后内容和金额将不可修改。</p><div><span>服务数量</span><strong>{items.length}</strong></div><FormError error={createOrderMutation.error} />{identity ? <button className="button button-dark button-block" type="button" disabled={createOrderMutation.isPending} onClick={() => createOrderMutation.mutate()}>{createOrderMutation.isPending ? "正在创建…" : "创建订单"}</button> : <Link className="button button-dark button-block" to="/login" state={{ from: "/trip" }}>登录后继续</Link>}<small>当前阶段不会发起支付，订单将在 20 分钟后自动取消。</small></aside>
         </div>
       )}
     </div>
