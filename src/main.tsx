@@ -8,7 +8,9 @@ import { AuthProvider } from "./auth/AuthProvider";
 import { BookingDraftProvider } from "./booking/BookingDraftProvider";
 import "./styles.css";
 
-const queryClient = new QueryClient({ defaultOptions: { queries: { refetchOnWindowFocus: false } } });
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { refetchOnWindowFocus: false, retry: false } },
+});
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

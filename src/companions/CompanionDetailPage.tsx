@@ -37,7 +37,7 @@ export function CompanionDetailPage() {
   };
 
   if (companion.isLoading) return <LoadingState>正在准备地陪档案…</LoadingState>;
-  if (companion.isError || !companion.data) return <ErrorState retry={() => void companion.refetch()} />;
+  if (companion.isError || !companion.data) return <ErrorState error={companion.error} retry={() => void companion.refetch()} />;
 
   const service = companion.data.services.find((item) => item.id === serviceId);
   const addSelection = () => {
@@ -74,7 +74,7 @@ export function CompanionDetailPage() {
       <section className="availability-section">
         <div className="availability-head"><div><p className="eyebrow">CHOOSE YOUR TIME</p><h2>选择服务与时间</h2><p>连续点击相邻小时可延长陪同时间，最多 16 小时。</p></div><div className="availability-fields"><label>服务<select value={serviceId} onChange={(event) => { setServiceId(event.target.value); setSelectedIds([]); setAdded(false); }}>{companion.data.services.map((item) => <option value={item.id} key={item.id}>{item.name} · {formatMoney(item.baseHourlyPriceAmount, item.currency)}/小时</option>)}</select></label><label>日期<input type="date" min={isoDateAfter(1)} max={isoDateAfter(companion.data.bookingWindowDays)} value={date} onChange={(event) => { setDate(event.target.value); setSelectedIds([]); setAdded(false); }} /></label></div></div>
         {availability.isLoading && <LoadingState>正在读取可用档期…</LoadingState>}
-        {availability.isError && <ErrorState retry={() => void availability.refetch()} />}
+        {availability.isError && <ErrorState error={availability.error} retry={() => void availability.refetch()} />}
         {availability.data && <div className="slot-grid">{availability.data.slots.map((slot) => <button className={`slot-button ${selectedIds.includes(slot.id) ? "selected" : ""}`} type="button" key={slot.id} onClick={() => toggleSlot(slot.id)}><strong>{formatHour(slot.startsAt, availability.data.timezone)}</strong><span>{formatMoney(slot.hourlyPriceAmount, availability.data.currency)}</span><small>{slot.rateBand === "STANDARD" ? "标准" : slot.rateBand === "EVENING" ? "晚间" : "深夜"}</small></button>)}</div>}
         {availability.data?.slots.length === 0 && <div className="catalog-state">当天暂无可用档期</div>}
         {selectedSlots.length > 0 && <div className="selection-bar"><div><span>{selectedSlots.length} 小时</span><strong>{formatHour(selectedSlots[0]!.startsAt, companion.data.timezone)} – {formatHour(selectedSlots.at(-1)!.endsAt, companion.data.timezone)}</strong></div><div><span>预计金额</span><strong>{formatMoney(estimatedAmount, availability.data!.currency)}</strong></div><button className="button button-dark" type="button" onClick={addSelection}>{added ? "已加入行程" : "加入行程"}</button></div>}

@@ -24,7 +24,7 @@ export function HotelDetailPage() {
   const rooms = useQuery({ queryKey: ["hotel", hotelId, "rooms"], queryFn: () => listHotelRoomTypes(hotelId), enabled: Boolean(hotelId) });
 
   if (hotel.isLoading || rooms.isLoading) return <LoadingState>正在准备酒店详情…</LoadingState>;
-  if (hotel.isError || rooms.isError || !hotel.data || !rooms.data) return <ErrorState retry={() => { void hotel.refetch(); void rooms.refetch(); }} />;
+  if (hotel.isError || rooms.isError || !hotel.data || !rooms.data) return <ErrorState error={hotel.error ?? rooms.error} retry={() => { void hotel.refetch(); void rooms.refetch(); }} />;
 
   const selectRate = (room: HotelRoomType, rate: HotelRatePlan) => {
     const key = `hotel:${rate.id}`;

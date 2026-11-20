@@ -38,7 +38,7 @@ export function CompanionListPage() {
       <section className="catalog-content">
         <div className="result-heading"><div><p className="eyebrow">LOCAL COMPANIONS</p><h2>认识你的地陪</h2></div><span>{companions.data?.pagination.total ?? 0} 位地陪</span></div>
         {companions.isLoading && <LoadingState>正在寻找当地地陪…</LoadingState>}
-        {companions.isError && <ErrorState retry={() => void companions.refetch()} />}
+        {companions.isError && <ErrorState error={companions.error} retry={() => void companions.refetch()} />}
         {companions.data?.data.length === 0 && <EmptyState>没有找到符合条件的地陪</EmptyState>}
         <div className="companion-grid">
           {companions.data?.data.map((companion) => (

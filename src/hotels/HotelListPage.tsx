@@ -40,7 +40,7 @@ export function HotelListPage() {
       <section className="catalog-content">
         <div className="result-heading"><div><p className="eyebrow">CURATED STAYS</p><h2>精选酒店</h2></div><span>{hotels.data?.pagination.total ?? 0} 个结果</span></div>
         {hotels.isLoading && <LoadingState>正在查找酒店…</LoadingState>}
-        {hotels.isError && <ErrorState retry={() => void hotels.refetch()} />}
+        {hotels.isError && <ErrorState error={hotels.error} retry={() => void hotels.refetch()} />}
         {hotels.data?.data.length === 0 && <EmptyState>没有找到符合条件的酒店</EmptyState>}
         <div className="hotel-grid">
           {hotels.data?.data.map((hotel, index) => (
