@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../auth/AuthProvider";
@@ -7,10 +8,19 @@ export function AppShell() {
   const { identity, logout } = useAuth();
   const { items } = useBookingDraft();
   const navigate = useNavigate();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [logoutFailed, setLogoutFailed] = useState(false);
 
   const handleLogout = async () => {
-    await logout();
-    navigate("/");
+    setIsLoggingOut(true);
+    setLogoutFailed(false);
+    try {
+      await logout();
+      navigate("/");
+    } catch {
+      setLogoutFailed(true);
+      setIsLoggingOut(false);
+    }
   };
 
   return (
@@ -32,7 +42,10 @@ export function AppShell() {
           {identity ? (
             <>
               <span className="welcome-name">Hi, {identity.user.profile.firstName}</span>
-              <button className="button button-ghost button-small" type="button" onClick={handleLogout}>退出</button>
+              {logoutFailed && <span className="header-auth-error" role="alert">退出失败，请重试</span>}
+              <button className="button button-ghost button-small" type="button" disabled={isLoggingOut} onClick={handleLogout}>
+                {isLoggingOut ? "正在退出…" : "退出"}
+              </button>
             </>
           ) : (
             <>

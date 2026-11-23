@@ -31,6 +31,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .main-nav a.active { border-color: var(--orange); }
 .header-actions { display: flex; align-items: center; justify-content: flex-end; gap: 18px; font-size: 14px; }
 .welcome-name { color: rgba(23, 32, 29, .68); }
+.header-auth-error { color: #a33b1d; font-size: 12px; }
 .text-link { font-weight: 600; }
 .trip-link { display: flex; align-items: center; gap: 7px; font-weight: 600; }
 .trip-link span { min-width: 21px; height: 21px; border-radius: 50%; background: var(--orange); color: white; display: grid; place-items: center; font-size: 10px; }
@@ -100,6 +101,10 @@ main { flex: 1; }
 .auth-form .check-label { display: grid; grid-template-columns: 20px 1fr; gap: 10px; align-items: start; font-weight: 400; line-height: 1.5; }
 .check-label input { width: 17px; height: 17px; margin: 2px 0 0; accent-color: var(--orange); }
 .form-error { padding: 13px 15px; background: #fde7df; border-left: 3px solid var(--orange); color: #7c2f15; font-size: 13px; }
+.button-google { margin-bottom: 22px; background: white; color: var(--ink); border: 1px solid var(--line); gap: 11px; }
+.google-mark { width: 23px; height: 23px; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--line); color: #4285f4; font-weight: 700; }
+.auth-divider { display: flex; align-items: center; gap: 13px; margin: 0 0 24px; color: rgba(23,32,29,.46); font-size: 12px; }
+.auth-divider::before, .auth-divider::after { content: ""; height: 1px; flex: 1; background: var(--line); }
 .form-switch { text-align: center; margin: 24px 0 0; color: rgba(23,32,29,.58); font-size: 14px; }
 .form-switch a { color: var(--ink); font-weight: 600; border-bottom: 1px solid; }
 
