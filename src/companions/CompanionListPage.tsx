@@ -43,7 +43,7 @@ export function CompanionListPage() {
         <div className="companion-grid">
           {companions.data?.data.map((companion) => (
             <Link className="companion-tile" to={`/companions/${companion.id}`} key={companion.id}>
-              <img src={companion.portraitUrl} alt={companion.displayName} />
+              <img src={companion.portraitUrl} alt={companion.displayName} loading="lazy" decoding="async" />
               <div className="companion-overlay"><p className="card-label">LOCAL COMPANION</p><h3>{companion.displayName}</h3><div><span>景点 {companion.ratings.sights}</span><span>美食 {companion.ratings.food}</span><span>夜生活 {companion.ratings.nightlife}</span></div></div>
             </Link>
           ))}

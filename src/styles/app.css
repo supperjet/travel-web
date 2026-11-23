@@ -1,0 +1,20 @@
+@import "tailwindcss";
+@import "./tokens.css";
+@import "../styles.css" layer(components);
+@import "./system.css";
+
+@theme inline {
+  --font-sans: var(--ll-font-body);
+  --font-display: var(--ll-font-display);
+  --color-background: var(--ll-background);
+  --color-surface: var(--ll-surface);
+  --color-foreground: var(--ll-foreground);
+  --color-muted: var(--ll-muted);
+  --color-primary: var(--ll-primary);
+  --color-primary-foreground: var(--ll-primary-foreground);
+  --color-secondary: var(--ll-secondary);
+  --color-secondary-foreground: var(--ll-secondary-foreground);
+  --color-brand-deep: var(--ll-brand-deep);
+  --color-danger: var(--ll-danger);
+  --color-border: var(--ll-border);
+}

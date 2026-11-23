@@ -1,6 +1,18 @@
 # LocalLoop Travel Web
 
-LocalLoop 客户端前端，使用 React、Vite 和 TypeScript，并通过 `travel-api` 完成注册、登录和订单流程。
+LocalLoop 客户端前端，通过 `travel-api` 完成注册、登录、目录浏览、行程草稿和订单流程。
+
+## 前端技术栈
+
+- React 19、TypeScript、Vite 7 和 React Router 7。
+- TanStack React Query 管理服务端状态。
+- Tailwind CSS 4 与 CSS Variables 管理响应式布局和语义设计令牌。
+- 项目内 `src/components/ui` 维护基础 UI；Radix UI 提供复杂交互的无障碍行为。
+- React Hook Form + Zod 管理表单状态和校验。
+- Lucide React 提供图标，Manrope Variable 由前端自托管。
+- Vitest + Testing Library 覆盖逻辑和 UI 模块。
+
+样式入口为 `src/styles/app.css`。颜色、字体、圆角和阴影统一定义在 `src/styles/tokens.css`；页面不应新增硬编码品牌颜色。
 
 ## 本地开发
 
@@ -29,4 +41,5 @@ npm run dev
 - 酒店列表、筛选、详情、房型和房价方案。
 - 地陪列表、筛选、档案、服务和连续小时档期。
 - 本地持久化行程草稿及目录价格预览。
-- 创建订单将在下一阶段接入；当前不会发起支付。
+- 创建、查询、倒计时和取消订单；当前不会发起支付。
+- 桌面导航与移动端抽屉导航，支持安全区和减少动画偏好。

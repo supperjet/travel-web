@@ -46,7 +46,7 @@ export function HotelListPage() {
           {hotels.data?.data.map((hotel, index) => (
             <Link className="hotel-tile" to={`/hotels/${hotel.id}`} key={hotel.id}>
               <div className="catalog-image-wrap">
-                {hotel.coverImageUrl ? <img src={hotel.coverImageUrl} alt={hotel.name} /> : <div className="image-placeholder">LL</div>}
+                {hotel.coverImageUrl ? <img src={hotel.coverImageUrl} alt={hotel.name} loading="lazy" decoding="async" /> : <div className="image-placeholder">LL</div>}
                 <span className="tile-number">{String(index + 1).padStart(2, "0")}</span>
               </div>
               <div className="tile-copy">

@@ -1,0 +1,43 @@
+:root {
+  font-family: var(--ll-font-body);
+  color: var(--ll-foreground);
+  background: var(--ll-background);
+  font-synthesis: none;
+
+  --ll-font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --ll-font-display: "Manrope Variable", "PingFang SC", "Microsoft YaHei", sans-serif;
+
+  --ll-background: #f6f4ee;
+  --ll-surface: #fffdf8;
+  --ll-surface-strong: #ffffff;
+  --ll-foreground: #17201d;
+  --ll-muted: #67706c;
+  --ll-primary: #e85d32;
+  --ll-primary-foreground: #ffffff;
+  --ll-secondary: #cadb68;
+  --ll-secondary-foreground: #17201d;
+  --ll-brand-deep: #173d32;
+  --ll-danger: #b74227;
+  --ll-border: rgba(23, 32, 29, 0.14);
+  --ll-ring: rgba(232, 93, 50, 0.32);
+
+  --ll-radius-sm: 0.5rem;
+  --ll-radius-md: 0.875rem;
+  --ll-radius-lg: 1.25rem;
+  --ll-radius-xl: 1.75rem;
+  --ll-shadow-card: 0 18px 48px rgba(23, 32, 29, 0.08);
+  --ll-shadow-float: 0 24px 70px rgba(23, 32, 29, 0.16);
+
+  /* Temporary aliases while existing feature pages move onto semantic tokens. */
+  --ink: var(--ll-foreground);
+  --forest: var(--ll-brand-deep);
+  --cream: var(--ll-background);
+  --paper: var(--ll-surface);
+  --orange: var(--ll-primary);
+  --lime: var(--ll-secondary);
+  --line: var(--ll-border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { scroll-behavior: auto; }
+}

@@ -1,8 +1,20 @@
-import { useState, type FormEvent } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { z } from "zod";
 
 import { useAuth } from "../auth/AuthProvider";
 import { FormError } from "../components/FormError";
+import { Button } from "../components/ui/Button";
+import { TextField } from "../components/ui/FormField";
+
+const loginSchema = z.object({
+  email: z.string().trim().email("请输入有效邮箱"),
+  password: z.string().min(8, "密码至少需要 8 个字符"),
+});
+
+type LoginValues = z.infer<typeof loginSchema>;
 
 export function LoginPage() {
   const { identity, login } = useAuth();
@@ -11,23 +23,25 @@ export function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const destination = (location.state as { from?: string } | null)?.from ?? "/account";
+  const form = useForm<LoginValues>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { email: "", password: "" },
+  });
 
   if (identity) return <Navigate to={destination} replace />;
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = form.handleSubmit(async (values) => {
     setError(null);
     setIsSubmitting(true);
-    const data = new FormData(event.currentTarget);
     try {
-      await login(String(data.get("email")), String(data.get("password")));
+      await login(values.email, values.password);
       navigate(destination, { replace: true });
     } catch (cause) {
       setError(cause);
     } finally {
       setIsSubmitting(false);
     }
-  };
+  });
 
   return (
     <div className="auth-layout">
@@ -42,13 +56,13 @@ export function LoginPage() {
           <p className="eyebrow">MEMBER SIGN IN</p>
           <h2>登录</h2>
           <p className="form-intro">使用注册邮箱继续。</p>
-          <form className="auth-form" onSubmit={handleSubmit}>
+          <form className="auth-form" onSubmit={handleSubmit} noValidate>
             <FormError error={error} />
-            <label>邮箱<input name="email" type="email" autoComplete="email" required /></label>
-            <label>密码<input name="password" type="password" autoComplete="current-password" minLength={8} required /></label>
-            <button className="button button-dark button-block" type="submit" disabled={isSubmitting}>
+            <TextField label="邮箱" type="email" autoComplete="email" error={form.formState.errors.email?.message} {...form.register("email")} />
+            <TextField label="密码" type="password" autoComplete="current-password" error={form.formState.errors.password?.message} {...form.register("password")} />
+            <Button block type="submit" disabled={isSubmitting}>
               {isSubmitting ? "正在登录…" : "登录"}
-            </button>
+            </Button>
           </form>
           <p className="form-switch">还没有账户？<Link to="/register">立即注册</Link></p>
         </div>

@@ -43,7 +43,7 @@ export function HotelDetailPage() {
         <div className="detail-title"><p className="eyebrow">{hotel.data.address.city} · {hotel.data.address.countryCode}</p><h1>{hotel.data.name}</h1><p>{hotel.data.shortDescription}</p></div>
         <div className="detail-rating"><strong>{hotel.data.starRating ?? "—"}</strong><span>HOTEL RATING</span></div>
       </section>
-      <div className="detail-hero-image">{heroImage ? <img src={heroImage.url} alt={heroImage.altText ?? hotel.data.name} /> : <div className="image-placeholder">LocalLoop Stay</div>}</div>
+      <div className="detail-hero-image">{heroImage ? <img src={heroImage.url} alt={heroImage.altText ?? hotel.data.name} fetchPriority="high" decoding="async" /> : <div className="image-placeholder">LocalLoop Stay</div>}</div>
       <section className="detail-overview">
         <div><p className="eyebrow">ABOUT THE STAY</p><h2>{hotel.data.description ?? hotel.data.shortDescription}</h2></div>
         <div className="amenity-list">{hotel.data.amenities.map((amenity) => <span key={amenity.code}>{amenity.name}</span>)}</div>
@@ -54,7 +54,7 @@ export function HotelDetailPage() {
         <div className="room-list">
           {rooms.data.data.map((room) => (
             <article className="room-card" key={room.id}>
-              <div className="room-image">{room.images[0] ? <img src={room.images[0].url} alt={room.images[0].altText ?? room.name} /> : <div className="image-placeholder">{room.category ?? "ROOM"}</div>}</div>
+              <div className="room-image">{room.images[0] ? <img src={room.images[0].url} alt={room.images[0].altText ?? room.name} loading="lazy" decoding="async" /> : <div className="image-placeholder">{room.category ?? "ROOM"}</div>}</div>
               <div className="room-copy"><span className="card-label">{room.category ?? "ROOM"}</span><h3>{room.name}</h3><p>{room.description}</p><div className="room-facts"><span>最多 {room.maxGuests} 人</span>{room.areaSqm && <span>{room.areaSqm} m²</span>}<span>{room.beds.map((bed) => `${bed.quantity} ${bed.type}`).join(" · ")}</span></div></div>
               <div className="rate-list">
                 {room.ratePlans.map((rate) => {

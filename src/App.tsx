@@ -1,19 +1,21 @@
+import { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { RequireAuth } from "./auth/RequireAuth";
-import { TripDraftPage } from "./booking/TripDraftPage";
 import { AppShell } from "./components/AppShell";
-import { CompanionDetailPage } from "./companions/CompanionDetailPage";
-import { CompanionListPage } from "./companions/CompanionListPage";
-import { HotelDetailPage } from "./hotels/HotelDetailPage";
-import { HotelListPage } from "./hotels/HotelListPage";
-import { AccountPage } from "./pages/AccountPage";
-import { HomePage } from "./pages/HomePage";
-import { LoginPage } from "./pages/LoginPage";
-import { NotFoundPage } from "./pages/NotFoundPage";
-import { RegisterPage } from "./pages/RegisterPage";
-import { OrderDetailPage } from "./orders/OrderDetailPage";
-import { OrderListPage } from "./orders/OrderListPage";
+
+const HomePage = lazy(() => import("./pages/HomePage").then((module) => ({ default: module.HomePage })));
+const LoginPage = lazy(() => import("./pages/LoginPage").then((module) => ({ default: module.LoginPage })));
+const RegisterPage = lazy(() => import("./pages/RegisterPage").then((module) => ({ default: module.RegisterPage })));
+const AccountPage = lazy(() => import("./pages/AccountPage").then((module) => ({ default: module.AccountPage })));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage").then((module) => ({ default: module.NotFoundPage })));
+const HotelListPage = lazy(() => import("./hotels/HotelListPage").then((module) => ({ default: module.HotelListPage })));
+const HotelDetailPage = lazy(() => import("./hotels/HotelDetailPage").then((module) => ({ default: module.HotelDetailPage })));
+const CompanionListPage = lazy(() => import("./companions/CompanionListPage").then((module) => ({ default: module.CompanionListPage })));
+const CompanionDetailPage = lazy(() => import("./companions/CompanionDetailPage").then((module) => ({ default: module.CompanionDetailPage })));
+const TripDraftPage = lazy(() => import("./booking/TripDraftPage").then((module) => ({ default: module.TripDraftPage })));
+const OrderListPage = lazy(() => import("./orders/OrderListPage").then((module) => ({ default: module.OrderListPage })));
+const OrderDetailPage = lazy(() => import("./orders/OrderDetailPage").then((module) => ({ default: module.OrderDetailPage })));
 
 export function App() {
   return (

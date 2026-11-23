@@ -1,5 +1,6 @@
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "VITE_");
@@ -7,7 +8,7 @@ export default defineConfig(({ mode }) => {
   const proxyOptions = { target, changeOrigin: true, secure: true, timeout: 15_000, proxyTimeout: 15_000 };
 
   return {
-    plugins: [react()],
+    plugins: [react(), tailwindcss()],
     server: {
       port: 3000,
       strictPort: true,

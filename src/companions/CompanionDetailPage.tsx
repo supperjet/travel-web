@@ -89,7 +89,7 @@ export function CompanionDetailPage() {
       </div>
       <section className="companion-profile-head">
         <div className="companion-portrait">
-          <img src={profile.portraitUrl} alt={companion.data.displayName} />
+          <img src={profile.portraitUrl} alt={companion.data.displayName} fetchPriority="high" decoding="async" />
         </div>
         <div className="companion-intro">
           <p className="eyebrow">{profile.city} · LOCAL COMPANION</p>
