@@ -1,19 +1,6 @@
 import { ApiError, apiRequest } from "../api/client";
 import type { AuthIdentity, RegistrationInput } from "./types";
 
-export interface AuthProviders {
-  google: boolean;
-}
-
-interface SocialSignInResponse {
-  redirect: boolean;
-  url?: string;
-}
-
-export function getAuthProviders(): Promise<AuthProviders> {
-  return apiRequest<AuthProviders>("/v1/auth/providers");
-}
-
 export async function getIdentity(): Promise<AuthIdentity | null> {
   try {
     return await apiRequest<AuthIdentity>("/v1/me");
@@ -39,21 +26,4 @@ export async function signOut(): Promise<void> {
     method: "POST",
     body: JSON.stringify({}),
   });
-}
-
-export async function beginGoogleSignIn(callbackURL: string): Promise<string> {
-  const result = await apiRequest<SocialSignInResponse>("/api/auth/sign-in/social", {
-    method: "POST",
-    body: JSON.stringify({
-      provider: "google",
-      callbackURL,
-      disableRedirect: true,
-    }),
-  });
-
-  if (!result.url) {
-    throw new ApiError(502, "GOOGLE_SIGN_IN_UNAVAILABLE", "Google 登录暂时不可用，请稍后重试");
-  }
-
-  return result.url;
 }

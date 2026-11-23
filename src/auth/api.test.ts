@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 
-import { beginGoogleSignIn, getAuthProviders, getIdentity, signIn, signOut } from "./api";
+import { getIdentity, signIn, signOut } from "./api";
 
 describe("authentication API", () => {
   it("treats a 401 identity response as signed out", async () => {
@@ -28,26 +28,4 @@ describe("authentication API", () => {
     }));
   });
 
-  it("loads configured sign-in providers", async () => {
-    vi.spyOn(globalThis, "fetch").mockResolvedValue(Response.json({ google: true }));
-
-    await expect(getAuthProviders()).resolves.toEqual({ google: true });
-  });
-
-  it("starts Google sign-in with a controlled callback URL", async () => {
-    const fetchMock = vi.spyOn(globalThis, "fetch").mockResolvedValue(Response.json({
-      redirect: false,
-      url: "https://accounts.google.com/o/oauth2/v2/auth?state=test",
-    }));
-
-    await expect(beginGoogleSignIn("http://localhost:3000/account")).resolves.toContain("accounts.google.com");
-    expect(fetchMock).toHaveBeenCalledWith("/api/auth/sign-in/social", expect.objectContaining({
-      method: "POST",
-      body: JSON.stringify({
-        provider: "google",
-        callbackURL: "http://localhost:3000/account",
-        disableRedirect: true,
-      }),
-    }));
-  });
 });
